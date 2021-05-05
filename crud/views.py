@@ -4,7 +4,7 @@ from .models import Member
 # Create your views here.
 
 def index(request):
-    members = Member.objects.all()
+    members = Member.objects.all().order_by('-id')
     context = {'members': members}
     return render(request, 'crud/index.html', context)
 

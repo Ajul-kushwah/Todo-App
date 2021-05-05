@@ -2,7 +2,7 @@
 
 ## Usage
 
-models.py
+crud/models.py
 ```python
 from django.db import models
 
@@ -16,7 +16,7 @@ class Member(models.Model):
         return self.firstname + " " + self.lastname
 ```
 
-views.py
+crud/views.py
 ```python
 from django.shortcuts import render, redirect
 from .models import Member
@@ -51,16 +51,41 @@ def delete(request, id):
     return redirect('/crud/')
 ```
 
-urls.py
+crud/urls.py
 ```python
-from django.conf.urls import url
+from django.urls import path
 from . import views
 
 urlpatterns= [
-    url(r'^$', views.index, name='index'),
-    url(r'^create$', views.create, name='create'),
-    url(r'^edit/(?P<id>\d+)$', views.edit, name='edit'),
-    url(r'^edit/update/(?P<id>\d+)$', views.update, name='update'),
-    url(r'^delete/(?P<id>\d+)$', views.delete, name='delete'),
+    path('', views.index, name='index'),
+    path('create', views.create, name='create'),
+    path('edit/<int:id>', views.edit, name='edit'),
+    path('edit/update/<int:id>', views.update, name='update'),
+    path('delete/<int:id>', views.delete, name='delete'),
 ]
 ```
+
+web/view.py
+```python
+from django.shortcuts import redirect
+
+def index_redirect(request):
+    return  redirect('/crud/')
+```
+
+
+web/urls.py
+```python
+from django.contrib import admin
+from django.urls import path,include
+from . import views
+
+urlpatterns = [
+    path('', views.index_redirect, name='index_redirect'),
+    path('crud/', include('crud.urls')),
+    path('admin/', admin.site.urls),
+]
+```
+
+
+
