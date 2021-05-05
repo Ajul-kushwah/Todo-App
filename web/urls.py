@@ -22,7 +22,11 @@ urlpatterns = [
     path('', views.index_redirect, name='index_redirect'),
     path('crud/', include('crud.urls')),
     path('admin/', admin.site.urls),
+
+
 ]
+
+    
 
 
 # urlpatterns = [
