@@ -1,5 +1,7 @@
 # Todo-App
 
+<img src="TodoApp.png">
+
 ## Usage
 
 crud/models.py
